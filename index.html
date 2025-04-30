@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youth Slang Dictionary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #ff6b6b;
+            --primary-light: #ff8e8e;
+            --primary-dark: #ff5252;
+            --secondary: #4ecdc4;
+            --dark: #333;
+            --light: #f5f5f5;
+            --gray: #e0e0e0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 3rem 1rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary-light);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        nav a:hover::before {
+            left: 100%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            animation: fadeIn 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box button:hover {
+            background: var(--primary-dark);
+        }
+        
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .post {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .post::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .post:hover::after {
+            height: 8px;
+            background: var(--secondary);
+        }
+        
+        .post h2 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .post p {
+            margin-bottom: 0.8rem;
+        }
+        
+        .post img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .post:hover img {
+            transform: scale(1.03);
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--gray);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .read-more {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .read-more:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .like-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+        
+        .like-btn:hover, .like-btn.liked {
+            color: var(--primary);
+        }
+        
+        .like-btn.liked {
+            animation: heartBeat 0.5s;
+        }
+        
+        .post-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 1rem;
+            border-radius: 8px;
+            padding: 0 1rem;
+        }
+        
+        .post-details.active {
+            max-height: 1000px;
+            padding: 1rem;
+            border: 1px solid var(--gray);
+        }
+        
+        .post-details h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .post-details ul {
+            padding-left: 1.5rem;
+        }
+        
+        .post-details li {
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem 3rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                padding: 0.5rem;
+            }
+            
+            nav a {
+                margin: 0.3rem;
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                margin-top: -1.5rem;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .post {
+                padding: 1.2rem;
+            }
+            
+            .post h2 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Delay animations for posts */
+        .post:nth-child(1) { animation-delay: 0.1s; }
+        .post:nth-child(2) { animation-delay: 0.2s; }
+        .post:nth-child(3) { animation-delay: 0.3s; }
+        .post:nth-child(4) { animation-delay: 0.4s; }
+        .post:nth-child(5) { animation-delay: 0.5s; }
+        .post:nth-child(6) { animation-delay: 0.6s; }
+        .post:nth-child(7) { animation-delay: 0.7s; }
+        .post:nth-child(8) { animation-delay: 0.8s; }
+        .post:nth-child(9) { animation-delay: 0.9s; }
+        .post:nth-child(10) { animation-delay: 1.0s; }
+        .post:nth-child(11) { animation-delay: 1.1s; }
+        .post:nth-child(12) { animation-delay: 1.2s; }
+        .post:nth-child(13) { animation-delay: 1.3s; }
+        .post:nth-child(14) { animation-delay: 1.4s; }
+        .post:nth-child(15) { animation-delay: 1.5s; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Youth Slang Dictionary</h1>
+        <p>Decoding the language of today's generation</p>
+    </header>
+    
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="contacts.html"><i class="fas fa-envelope"></i> Contacts</a>
+    </nav>
+    
+    <div class="container">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search for slang terms...">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+        
+        <div class="posts-grid">
+            <!-- Slay -->
+            <div class="post">
+                <h2>What does "Slay" mean?</h2>
+                <div>
+                    <span class="tag">Gen Z</span>
+                    <span class="tag">Performance</span>
+                </div>
+                <p><strong>Definition:</strong> To do something exceptionally well or to look exceptionally good.</p>
+                <p><strong>Example:</strong> "Did you see her performance? She totally slayed!"</p>
+                <img src="https://i.pinimg.com/originals/ae/81/ad/ae81ad06e62e24637feefb6f4b3f9fa9.gif" alt="Person slaying performance">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>The term "slay" has evolved from its original meaning of killing someone to a positive expression of excellence. In modern slang, it's used to compliment someone's outstanding performance, appearance, or achievements.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Originally from drag culture and African American Vernacular English (AAVE), the term gained mainstream popularity through social media platforms like Instagram and TikTok.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Use "slay" to compliment someone's outfit: "That dress is slaying!"</li>
+                        <li>Can be used as a verb: "She slayed that presentation!"</li>
+                        <li>Often accompanied by fire emojis (🔥) for emphasis</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- No Cap -->
+            <div class="post">
+                <h2>Understanding "No Cap"</h2>
+                <div>
+                    <span class="tag">AAVE</span>
+                    <span class="tag">Truth</span>
+                </div>
+                <p><strong>Definition:</strong> No lie or for real.</p>
+                <p><strong>Example:</strong> "I aced that test, no cap!"</p>
+                <img src="https://i.ytimg.com/vi/fh03G3h3bbw/maxresdefault.jpg" alt="No cap meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"No cap" is used to emphasize that someone is telling the truth or being completely honest. It's often used to add credibility to a statement that might otherwise seem exaggerated.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Originated from African American Vernacular English (AAVE), where "cap" means to lie or exaggerate. The phrase became popular through rap music and then spread to mainstream youth culture.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Use at the end of a statement to emphasize truthfulness</li>
+                        <li>Often used with achievements or surprising facts</li>
+                        <li>Can be shortened to just "no cap" in response to someone else's statement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Italian Animals Meme -->
+            <div class="post">
+                <h2>The "Italian Animals" Meme Explained</h2>
+                <div>
+                    <span class="tag">Meme</span>
+                    <span class="tag">Viral</span>
+                </div>
+                <p><strong>What is it?</strong> A viral meme featuring photoshopped images of Italian landmarks with random animals added in absurd ways.</p>
+                <img src="https://media1.tenor.com/m/RR-8CBT-yb4AAAAC/plane-memes.gif" alt="Italian animals meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>The Italian Animals meme involves placing random animals in famous Italian settings in ways that are completely absurd but visually humorous. The contrast between the majestic Italian architecture and the random animals creates the comedic effect.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Began on Twitter in early 2023, possibly inspired by similar absurdist meme trends. Gained massive popularity on TikTok with users creating their own versions.</p>
+                    
+                    <h3>Popular Examples</h3>
+                    <ul>
+                        <li>A giraffe leaning against the Leaning Tower of Pisa</li>
+                        <li>A kangaroo in a gondola in Venice</li>
+                        <li>A panda sitting at a café in Rome</li>
+                        <li>A hippo in the Trevi Fountain</li>
+                    </ul>
+                    
+                    <h3>Why It's Funny</h3>
+                    <p>The humor comes from the complete randomness and the animals' nonchalant expressions in these iconic settings, as if they belong there.</p>
+                </div>
+            </div>
+            
+            <!-- Rizz -->
+            <div class="post">
+                <h2>What's "Rizz"?</h2>
+                <div>
+                    <span class="tag">Charisma</span>
+                    <span class="tag">Dating</span>
+                </div>
+                <p><strong>Definition:</strong> Short for charisma, refers to someone's ability to attract romantic partners.</p>
+                <p><strong>Example:</strong> "He's got so much rizz, he can get anyone's number."</p>
+                <img src="https://i.ytimg.com/vi/cAYCAyOZ4nU/maxresdefault.jpg" alt="Rizz meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Rizz" describes someone's natural charm and ability to attract romantic or sexual partners through charisma, confidence, and smooth talking.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Popularized by Twitch streamer Kai Cenat in 2022. The term is a shortened form of "charisma" (pronounced "riz-zuh-ma" in some dialects).</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Can be used as a noun: "He's got rizz"</li>
+                        <li>Can describe actions: "He's rizzing her up"</li>
+                        <li>Often used in dating contexts but can apply to general charisma</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Glow Up -->
+            <div class="post">
+                <h2>"Glow Up" Meaning</h2>
+                <div>
+                    <span class="tag">Transformation</span>
+                    <span class="tag">Appearance</span>
+                </div>
+                <p><strong>Definition:</strong> A significant transformation in appearance, usually for the better.</p>
+                <p><strong>Example:</strong> "Did you see Mark's glow up after high school?"</p>
+                <img src="https://media1.tenor.com/m/QCLuUnWJdcUAAAAC/glow-up.gif" alt="Glow up example">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>A "glow up" refers to a positive transformation in someone's appearance, style, or overall presentation. It often implies that someone has become more attractive or put-together compared to their past self.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Originated in Black culture to describe both physical and personal growth. Gained mainstream popularity through social media transformation posts.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Often used with before/after photos</li>
+                        <li>Can refer to style, confidence, or success transformations</li>
+                        <li>Sometimes used ironically for minor improvements</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Mid -->
+            <div class="post">
+                <h2>What does "Mid" mean?</h2>
+                <div>
+                    <span class="tag">Quality</span>
+                    <span class="tag">Rating</span>
+                </div>
+                <p><strong>Definition:</strong> Mediocre, average, not special.</p>
+                <p><strong>Example:</strong> "That new movie was so mid, I fell asleep."</p>
+                <img src="https://www.wikihow.com/images/thumb/d/d9/What-Does-Mid-Mean-Step-6.jpg/v4-728px-What-Does-Mid-Mean-Step-6.jpg.webp" alt="Mid meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Mid" is used to describe something that's average or mediocre - not good enough to be impressive, but not bad enough to be memorable. It's a dismissive term for things that fail to stand out.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Comes from the middle of a ranking scale (not high or low). Popularized in hip-hop culture before spreading to mainstream youth slang.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Often used to critique music, movies, or fashion</li>
+                        <li>Can be extended to "mid-tier" for slightly better than mid</li>
+                        <li>Sometimes used as a burn: "Your taste is mid"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Based -->
+            <div class="post">
+                <h2>"Based" Explained</h2>
+                <div>
+                    <span class="tag">Opinion</span>
+                    <span class="tag">Approval</span>
+                </div>
+                <p><strong>Definition:</strong> Expressing approval for someone's bold opinion or stance.</p>
+                <p><strong>Example:</strong> "You think pineapple belongs on pizza? Based."</p>
+                <img src="https://avatars.mds.yandex.net/i?id=75f3b57789969315f3f64d7778722d23_l-5354114-images-thumbs&n=13" alt="Based meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Based" is used to show approval for someone's opinion, especially when it's controversial or goes against mainstream thinking. It implies that the person is being authentic and true to themselves.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Originally from rapper Lil B ("The BasedGod"), who used it to describe being true to oneself. Evolved to its current meaning through internet culture.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Often used in response to unpopular but honest opinions</li>
+                        <li>Can be paired with "and redpilled" for extra emphasis</li>
+                        <li>Sometimes used ironically for obviously popular opinions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Touch Grass -->
+            <div class="post">
+                <h2>"Touch Grass" Meaning</h2>
+                <div>
+                    <span class="tag">Internet</span>
+                    <span class="tag">Advice</span>
+                </div>
+                <p><strong>Definition:</strong> Telling someone to go outside and experience real life.</p>
+                <p><strong>Example:</strong> "You've been online for 10 hours straight. Go touch grass."</p>
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/2037357232947856795/1A7CDF48027FE7D186811C6A53B9CEB651529E76/?imw=512&imh=447&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" alt="Touch grass meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Touch grass" is a suggestion (often sarcastic) that someone needs to disconnect from the internet and engage with the real world. It implies that someone's online behavior is disconnected from reality.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Began as internet slang in online gaming communities, later spread to broader internet culture as a way to call out terminally online behavior.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Used when someone is overly invested in online arguments</li>
+                        <li>Can be a genuine suggestion or an insult</li>
+                        <li>Often accompanied by "go outside" for extra emphasis</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Sus -->
+            <div class="post">
+                <h2>"Sus" - More Than Among Us</h2>
+                <div>
+                    <span class="tag">Suspicious</span>
+                    <span class="tag">Gaming</span>
+                </div>
+                <p><strong>Definition:</strong> Suspicious or shady behavior.</p>
+                <p><strong>Example:</strong> "Why is Jake being so quiet? That's sus."</p>
+                <img src="https://steamuserimages-a.akamaihd.net/ugc/1840307935406176836/7D065BC02B005B1B4E99ECF193B8C51B2B544E6C/?imw=512&amp;imh=341&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true" alt="Sus meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Sus" is shorthand for suspicious, used to describe behavior that seems shady, dishonest, or out of the ordinary. While popularized by Among Us, it predates the game in African American Vernacular English.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Existed in AAVE for years but exploded in popularity through the game Among Us in 2020, where players try to identify "sus" (suspicious) impostors.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Can be used as an adjective: "That's sus"</li>
+                        <li>Or as a noun: "He's acting like a sus"</li>
+                        <li>Often accompanied by side-eye emoji (🤨) for extra effect</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Cheugy -->
+            <div class="post">
+                <h2>"Cheugy" - The New Cringe</h2>
+                <div>
+                    <span class="tag">Style</span>
+                    <span class="tag">Trends</span>
+                </div>
+                <p><strong>Definition:</strong> Something that's trying too hard to be trendy but is actually outdated.</p>
+                <p><strong>Example:</strong> "Live laugh love signs are so cheugy."</p>
+                <img src="https://thumbs.dreamstime.com/b/%D0%BF%D0%BE%D0%B3%D0%B0%D0%BD%D1%8B%D0%B9-%D1%81%D1%82%D0%B8%D0%BB%D1%8C-%D1%84%D1%83%D1%82%D0%B1%D0%BE%D0%BB%D0%BA%D0%B0-%D1%81-%D0%BB%D0%BE%D0%B7%D1%83%D0%BD%D0%B3%D0%B0%D0%BC%D0%B8-%D0%BE-%D0%B4%D0%B5%D1%88%D1%91%D0%B2%D1%8B%D1%85-%D0%B4%D0%B6%D0%B8%D0%BD%D1%81%D0%B0%D1%85-%D1%88%D0%BB%D0%B5%D0%BF%D0%BA%D0%B8-%D0%BA%D0%B0%D1%80%D0%BC%D0%B0%D0%BD%D0%B0%D0%BC%D0%B8-241981341.jpg" alt="Cheugy example">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Cheugy" describes aesthetic choices that are trying to be trendy but are actually basic, outdated, or trying too hard. It's often used to describe millennial trends that Gen Z finds cringeworthy.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Coined in 2013 by a Beverly Hills high school student but went viral on TikTok in 2021 as Gen Z began mocking millennial fashion and decor trends.</p>
+                    
+                    <h3>Common Cheugy Things</h3>
+                    <ul>
+                        <li>"Live, Laugh, Love" decor</li>
+                        <li>Ugg boots with skinny jeans</li>
+                        <li>Starbucks pumpkin spice lattes</li>
+                        <li>Minion memes</li>
+                        <li>Anything "basic" from the early 2010s</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Stan -->
+            <div class="post">
+                <h2>"Stan" Culture</h2>
+                <div>
+                    <span class="tag">Fandom</span>
+                    <span class="tag">Music</span>
+                </div>
+                <p><strong>Definition:</strong> An extremely or excessively enthusiastic fan.</p>
+                <p><strong>Origin:</strong> From Eminem's song "Stan" about an obsessed fan.</p>
+                <img src="https://i1.sndcdn.com/artworks-hrplAqkqOKkOy6hy-XAVhPg-t500x500.jpg" alt="Stan culture">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>A "stan" is an overzealous fan who is extremely dedicated to a celebrity or franchise. While originally negative, it's now often used neutrally or positively to describe dedicated fans.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>From Eminem's 2000 song "Stan" about an obsessive fan who kills himself and his pregnant girlfriend after Eminem doesn't reply to his letters.</p>
+                    
+                    <h3>Modern Usage</h3>
+                    <ul>
+                        <li>Can be used as a noun: "She's a BTS stan"</li>
+                        <li>Or as a verb: "I stan this artist"</li>
+                        <li>Stan culture refers to the behaviors of these fan communities</li>
+                        <li>Often involves intense social media support and defense of their idol</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Simp -->
+            <div class="post">
+                <h2>"Simp" - Not Just a Name</h2>
+                <div>
+                    <span class="tag">Relationships</span>
+                    <span class="tag">Internet</span>
+                </div>
+                <p><strong>Definition:</strong> Someone who does too much for someone they're attracted to.</p>
+                <p><strong>Example:</strong> "He bought her a $100 gift after one date? Total simp."</p>
+                <img src="https://avatars.mds.yandex.net/i?id=ec33ff7342791e53513611a173cfdc9d_l-5271165-images-thumbs&n=13" alt="Simp meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>A "simp" is someone (usually a man) who goes above and beyond for someone they're attracted to, often without receiving the same energy in return. It implies they're being overly submissive or desperate for attention.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Originally short for "simpleton," the term was used in hip-hop culture before being popularized on Twitch and TikTok in 2020.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Often used in dating contexts but can apply to any unbalanced relationship</li>
+                        <li>Can be used as a noun or verb: "Stop simping for her"</li>
+                        <li>Sometimes used ironically among friends</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Yeet -->
+            <div class="post">
+                <h2>"Yeet" - Throw or Excitement?</h2>
+                <div>
+                    <span class="tag">Action</span>
+                    <span class="tag">Versatile</span>
+                </div>
+                <p><strong>Definition:</strong> To throw something with force OR an exclamation of excitement.</p>
+                <p><strong>Example:</strong> "Yeet that trash!" or "We won the game! Yeet!"</p>
+                <img src="https://media1.tenor.com/m/kY2JKoN_V-cAAAAC/elmo-falling.gif" alt="Yeet meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Yeet" is a versatile term that can mean to throw something with force or serve as an exclamation of excitement or victory. The meaning depends on context.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Originated in the early 2000s in dance culture (specifically the "yeet dance"), then evolved into its current meanings through Vine and later TikTok.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>As a verb: "Yeet the ball!" (throw it hard)</li>
+                        <li>As an exclamation: "Yeet! I passed the test!"</li>
+                        <li>The past tense is "yeeted" or "yote" (jokingly)</li>
+                        <li>Can be used when discarding something: "Yeet it in the trash"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bussin' -->
+            <div class="post">
+                <h2>"Bussin'" - Not Just Buses</h2>
+                <div>
+                    <span class="tag">Food</span>
+                    <span class="tag">Quality</span>
+                </div>
+                <p><strong>Definition:</strong> Really good, especially referring to food.</p>
+                <p><strong>Example:</strong> "This pizza is bussin'!"</p>
+                <img src="https://avatars.mds.yandex.net/i?id=2986e5f3d5e7a8e0127afadb0cf7f6f6_l-9700166-images-thumbs&n=13" alt="Bussin food">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>"Bussin'" describes something that's extremely good, particularly food. It implies that something is so delicious it's worth getting excited about.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>From African American Vernacular English (AAVE), possibly related to "busting" with flavor. Gained popularity through food TikTok and rap lyrics.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Most commonly used for food but can apply to other things</li>
+                        <li>Often said while eating: *takes bite* "This is bussin'!"</li>
+                        <li>Can be extended: "Bussin' bussin'" for extra emphasis</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- FOMO -->
+            <div class="post">
+                <h2>"FOMO" - Fear Of Missing Out</h2>
+                <div>
+                    <span class="tag">Psychology</span>
+                    <span class="tag">Social</span>
+                </div>
+                <p><strong>Definition:</strong> Anxiety that an exciting event may be happening elsewhere.</p>
+                <p><strong>Example:</strong> "I wasn't going to go, but I got FOMO."</p>
+                <img src="https://avatars.dzeninfra.ru/get-zen_doc/3769362/pub_62d51c39cc38491671d0cdb9_62d51cb81af13a7a72b1e502/scale_1200" alt="FOMO illustration">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>FOMO describes the anxiety that others might be having rewarding experiences from which you're absent. It's often triggered by seeing social media posts about events you weren't invited to or chose not to attend.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Coined in 2004 by marketing strategist Dan Herman, but popularized in the 2010s with the rise of social media platforms that constantly show others' activities.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Often used as a reason for attending events: "I only came because of FOMO"</li>
+                        <li>Can describe the feeling: "I have such FOMO right now"</li>
+                        <li>The opposite is JOMO (Joy Of Missing Out)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- GOAT -->
+            <div class="post">
+                <h2>"GOAT" - Greatest Of All Time</h2>
+                <div>
+                    <span class="tag">Praise</span>
+                    <span class="tag">Sports</span>
+                </div>
+                <p><strong>Definition:</strong> The best in a particular field or category.</p>
+                <p><strong>Example:</strong> "Messi is the GOAT of soccer."</p>
+                <img src="https://media1.tenor.com/m/Zs9jp7xoP7sAAAAC/is-this-man-ok-thats-why-hes-the-goat.gif" alt="GOAT meme">
+                <button class="read-more">Read More</button>
+                <button class="like-btn"><i class="far fa-heart"></i> Like</button>
+                
+                <div class="post-details">
+                    <h3>Detailed Explanation</h3>
+                    <p>GOAT is used to describe someone who is considered the best ever in their field. It's the highest compliment you can give in competitive contexts.</p>
+                    
+                    <h3>Origin</h3>
+                    <p>Popularized by boxer Muhammad Ali who called himself "the greatest." The acronym was cemented in sports culture and later spread to other domains.</p>
+                    
+                    <h3>Usage Tips</h3>
+                    <ul>
+                        <li>Can be used as a noun: "She's the GOAT"</li>
+                        <li>Or as an adjective: "That was a GOAT performance"</li>
+                        <li>Often accompanied by goat emoji (🐐)</li>
+                        <li>Common in sports but applies to any field (music, acting, etc.)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://rutube.ru/video/f884aa6ed5f94120b7304506042fe5bb/"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; Spring 2025 Youth Slang Dictionary. All rights reserved.</p>
+        <p>Created with <i class="fas fa-heart" style="color: var(--primary);"></i></p>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+    
+    <script>
+        // Like button functionality
+        document.querySelectorAll('.like-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('liked');
+                if (this.classList.contains('liked')) {
+                    this.innerHTML = '<i class="fas fa-heart"></i> Liked';
+                } else {
+                    this.innerHTML = '<i class="far fa-heart"></i> Like';
+                }
+            });
+        });
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Read more buttons functionality
+        document.querySelectorAll('.read-more').forEach(button => {
+            button.addEventListener('click', function() {
+                const details = this.parentElement.querySelector('.post-details');
+                details.classList.toggle('active');
+                
+                if (details.classList.contains('active')) {
+                    this.textContent = 'Show Less';
+                } else {
+                    this.textContent = 'Read More';
+                }
+            });
+        });
+        
+        // Search functionality placeholder
+        document.querySelector('.search-box button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-box input').value;
+            if (searchTerm.trim() !== '') {
+                alert(`Searching for: "${searchTerm}"\nThis would show results in a complete implementation.`);
+            }
+        });
+        
+        // Allow Enter key to trigger search
+        document.querySelector('.search-box input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-box button').click();
+            }
+        });
+    </script>
+</body>
+</html>

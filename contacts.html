@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts - Youth Slang Dictionary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #ff6b6b;
+            --primary-light: #ff8e8e;
+            --primary-dark: #ff5252;
+            --secondary: #4ecdc4;
+            --dark: #333;
+            --light: #f5f5f5;
+            --gray: #e0e0e0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 3rem 1rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1s ease;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--primary-light);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+        }
+        
+        nav a:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        nav a:hover::before {
+            left: 100%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            animation: fadeIn 1s ease;
+        }
+        
+        .contact-content h2 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-content h3 {
+            color: var(--primary-dark);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .contact-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 3px solid var(--primary);
+        }
+        
+        .team-member h4 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member p {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member .position {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .contact-form {
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 2rem 1rem 3rem;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+                padding: 0.5rem;
+            }
+            
+            nav a {
+                margin: 0.3rem;
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                margin-top: -1.5rem;
+            }
+            
+            .contact-content {
+                padding: 1.5rem;
+            }
+            
+            .team {
+                flex-direction: column;
+            }
+            
+            .team-member {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Youth Slang Dictionary</h1>
+        <p>Understanding today's youth language</p>
+    </header>
+    
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="contacts.html"><i class="fas fa-envelope"></i> Contacts</a>
+    </nav>
+    
+    <div class="container">
+        <div class="contact-content">
+            <h2>Contact Us</h2>
+            <p>We're always happy to hear from our users! Whether you have a question, suggestion, or want to report a new slang term we should cover, don't hesitate to reach out.</p>
+            
+            <h3>Our University</h3>
+            <p>University of Tyumen <strong>Тюменский государственный университет (ТюмГУ)</strong>.</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Perekopskaya Ulitsa, 15А, Tyumen, Tyumenskaya oblast', 625003</p>
+            <p><i class="fas fa-phone"></i> <strong>Phone:</strong> 8 (800) 555-3535</p>
+            <p><i class="fas fa-envelope"></i> <strong>Email:</strong> Slang@utmn.study</p>
+            <p><i class="fas fa-clock"></i> <strong>Hours:</strong> Thuesday, 8:30am-11:45am</p>
+            
+            <h3>Our Team</h3>
+            <div class="team">
+                <div class="team-member">
+                    <img src="https://neuroquad.ru/wp-content/uploads/2023/09/photo_1401-14-04-2023_10-29-09.jpg" alt="Alex Johnson">
+                    <h4>Marakulin Roman</h4>
+                    <p class="position">Site Creator</p>
+                    <p><i class="fas fa-envelope"></i> roma@utmn.edu</p>
+                    <p><i class="fas fa-phone"></i> 8 (800) 555-3535</p>
+                    <p>Customs regulation and customs control</p>
+                </div>
+                
+                <div class="team-member">
+                    <img src="https://neuroquad.ru/wp-content/uploads/2023/09/photo_1402-14-04-2023_10-29-09.jpg" alt="Sam Taylor">
+                    <h4>Mirzoyev Emin</h4>
+                    <p class="position">Content Editor</p>
+                    <p><i class="fas fa-envelope"></i> sam.taylor@uml.edu</p>
+                    <p><i class="fas fa-phone"></i>8 (800) 555-3535</p>
+                    <p>Legal provision of national security</p>
+                </div>
+            </div>
+            
+            <h3>Send Us a Message</h3>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://rutube.ru/video/f884aa6ed5f94120b7304506042fe5bb/"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; Spring 2025 Youth Slang Dictionary. All rights reserved.</p>
+        <p>Created with <i class="fas fa-heart" style="color: var(--primary);"></i></p>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+    
+    <script>
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
